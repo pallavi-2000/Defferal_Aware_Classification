@@ -1,57 +1,58 @@
 {
   "audit_version": "v0",
-  "description": "Baseline calibration audit of ALeRCE transient classifier",
-  "status": "exploratory — not publication-level",
+  "description": "Baseline calibration audit of ALeRCE LC Classifier on ZTF BTS transients",
+  "status": "Phase 1 baseline \u2014 exploratory, not publication-level",
   "data": {
     "broker": "ALeRCE",
-    "classifier": "lc_classifier_transient",
-    "ztf_data": "ZTF archival alerts",
-    "ground_truth": "TNS spectroscopic classifications",
-    "n_objects": 815,
-    "classes": ["SNIa", "SNII", "TDE", "AGN"],
-    "class_counts": {
-      "SNIa": 312,
-      "SNII": 247,
-      "AGN": 163,
-      "TDE": 93
+    "classifier": "lc_classifier",
+    "ground_truth_source": "ZTF Bright Transient Survey (BTS) spectroscopic catalogue",
+    "bts_reference": "Fremling et al. (2020), ApJ 895, 32",
+    "original_pool": 10181,
+    "n_objects_collected": 815,
+    "collection_date": "January 2026",
+    "class_distribution": {
+      "SNIa": 504,
+      "SNII": 217,
+      "SNIbc": 64,
+      "SLSN": 15,
+      "TDE": 15
     },
-    "selection_bias": "Spectroscopically confirmed sample; not representative of full ZTF alert stream"
+    "selection_bias_notes": "BTS preferentially contains brighter, scientifically notable transients."
+  },
+  "performance": {
+    "overall_accuracy": 0.75,
+    "n_correct": 611,
+    "mean_confidence": 0.453
   },
   "calibration_metrics": {
-    "ece_baseline": {
-      "n_bins_10": 0.281,
-      "n_bins_15": 0.297,
-      "n_bins_20": 0.304,
-      "binning_strategy": "uniform_width",
-      "formulation": "top-label ECE (Guo et al. 2017)"
-    },
-    "ece_per_class": {
-      "SNIa": 0.241,
-      "SNII": 0.318,
-      "TDE": 0.389,
-      "AGN": 0.271
-    },
-    "post_hoc_calibration": {
-      "temperature_scaling": {
-        "fitted_temperature": 2.3,
-        "ece_after": 0.14,
-        "validation_split": 0.2
+    "ece": 0.2968,
+    "direction": "UNDERCONFIDENT",
+    "average_gap": -0.24,
+    "per_class": {
+      "SNIa": {
+        "n": 504,
+        "accuracy": 0.843,
+        "ece": 0.3882
       },
-      "isotonic_regression": {
-        "ece_after": 0.11,
-        "validation_split": 0.2,
-        "note": "May overfit; held-out test evaluation pending"
+      "SNII": {
+        "n": 217,
+        "accuracy": 0.544,
+        "ece": 0.1166
       },
-      "platt_scaling": {
-        "ece_after": 0.16,
-        "validation_split": 0.2
+      "SNIbc": {
+        "n": 64,
+        "accuracy": 0.875,
+        "ece": 0.3814
       }
     }
   },
-  "key_finding": "ALeRCE transient classifier shows substantial overconfidence (ECE=0.297), particularly at high confidence scores (0.9-1.0 bin: accuracy ~0.71 vs confidence ~0.95). Post-hoc calibration reduces ECE substantially.",
-  "methodological_notes": "See docs/methodology.md for full discussion of limitations and selection biases.",
-  "references": {
-    "alerce_classifier": "Sánchez-Sáez et al. (2021), AJ 161, 141",
-    "ece_definition": "Guo et al. (2017), ICML; Nixon et al. (2019), CVPR Workshops"
+  "silent_failure_analysis": {
+    "threshold_0.7": {
+      "n_high_conf": 7,
+      "silent_failures": 0,
+      "sfr": 0.0,
+      "coverage": 0.009
+    },
+    "key_finding": "Zero silent failures at threshold 0.7 but coverage collapses to 0.9%. Learned deferral needed."
   }
 }
