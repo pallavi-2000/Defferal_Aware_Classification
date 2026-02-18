@@ -1,11 +1,9 @@
 # Deferral-Aware Transient Classification for Spectroscopic Follow-up Prioritization
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Tests](https://github.com/pallavi-2000/Defferal_Aware_Classification/actions/workflows/tests.yml/badge.svg)](https://github.com/pallavi-2000/Defferal_Aware_Classification/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Pallavi Kailas** | PhD Project Research Repository  
-*PrO-AI CDT Application — University of Bristol*
+**Pallavi Sati** |Project Repository  
 
 ---
 
